@@ -1,10 +1,12 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Abp.Domain.Repositories;
 using Abp.ObjectMapping;
-using TestProjectBoilerplateCore.Models;
+using Microsoft.EntityFrameworkCore;
+using TestProjectBoilerplateCore.DTO;
 
+//u cijeloj strukturi prvo kreiramo DeviceType, u njemu propertije a zatim kreiramo Device..
 namespace TestProjectBoilerplateCore.Services.DeviceType
 {
     public class DeviceTypeService:TestProjectBoilerplateCoreAppServiceBase, IDeviceTypeService
@@ -22,6 +24,22 @@ namespace TestProjectBoilerplateCore.Services.DeviceType
             _repositoryDeviceTypeProperty = repositoryDeviceTypeProperty;
             _repositoryDevicePropertyValue = repositoryDevicePropertyValue;
             _objectMapper = objectMapper;
+        }
+
+
+        public List<DeviceTypeForListDto> GetAllDeviceTypes()
+        {
+             var getAll = _repositoryDeviceType.GetAll().Include(c => c.ParentDeviceType)
+                .ToList();
+            List<DeviceTypeForListDto> getAllMap = _objectMapper.Map<List<DeviceTypeForListDto>>(getAll);
+
+            return getAllMap;
+        }
+
+        public Models.DeviceType GetByIdDeviceType(int id)
+        {
+            var getById = _repositoryDeviceType.Get(id);
+            return getById;
         }
     }
 }
