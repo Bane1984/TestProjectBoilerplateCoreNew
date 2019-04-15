@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Abp.Application.Services;
+using TestProjectBoilerplateCore.DTO;
 using TestProjectBoilerplateCore.Models;
 
 namespace TestProjectBoilerplateCore.Services.Device
