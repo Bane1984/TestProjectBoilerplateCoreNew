@@ -1,0 +1,45 @@
+//QueryInfo json koji treba kreirati
+
+{
+  "skip": 0,
+  "take": 20,
+  "searchText": "blabla",
+  "searchProperties": [ "name" ],
+  "sorters": [
+    {
+      "property": "name",
+      "direction": "asc"
+    },
+    {
+      "property": "id",
+      "direction": "desc"
+    }
+  ],
+  "filter": {
+    "condition": "and",
+    "rules": [
+      {
+        "property": "name",
+        "operator": "eq",
+        "value": "blablabla",
+        "condition": "or",
+        "rules": [
+          {
+            "property": "id",
+            "operator": "lt",
+            "value": "5",
+            "condition": null,
+            "rules": null
+          },
+          {
+            "property": "id",
+            "operator": "gt",
+            "value": "15",
+            "condition": null,
+            "rules": null
+          }
+        ]
+      }
+    ]
+  }
+}

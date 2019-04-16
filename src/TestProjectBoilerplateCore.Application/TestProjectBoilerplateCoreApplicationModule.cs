@@ -39,6 +39,7 @@ namespace TestProjectBoilerplateCore
                         .ForMember(dest => dest.ParentDeviceTypeId, source => source.MapFrom(src => src.Parentid))
                         .ForMember(dest => dest.ParentDeviceType, source => source.Ignore());
 
+                    //zbog potreba Fronta treba umjesto Children stoji Items
                     cfg.CreateMap<DeviceType, DeviceTypeNestedDto>()
                         .ForMember(dest => dest.Name, source => source.MapFrom(src => src.Name))
                         .ForMember(dest => dest.Description, source => source.MapFrom(src => src.Description))
