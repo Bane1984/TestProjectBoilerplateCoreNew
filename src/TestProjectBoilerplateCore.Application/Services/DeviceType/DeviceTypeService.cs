@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using TestProjectBoilerplateCore.DTO;
-using TestProjectBoilerplateCore.Services.Device;
 
 //u cijeloj strukturi prvo kreiramo DeviceType, u njemu propertije a zatim kreiramo Device..
 namespace TestProjectBoilerplateCore.Services.DeviceType
@@ -16,8 +15,6 @@ namespace TestProjectBoilerplateCore.Services.DeviceType
         private readonly IRepository<Models.DeviceTypeProperty> _repositoryDeviceTypeProperty;
         private readonly IRepository<Models.DevicePropertyValue> _repositoryDevicePropertyValue;
         private readonly IObjectMapper _objectMapper;
-
-        private readonly IDeviceService _deviceService;
 
 
         public DeviceTypeService(IRepository<Models.Device> repositoryDevice, IRepository<Models.DeviceType> repositoryDeviceType, IRepository<Models.DeviceTypeProperty> repositoryDeviceTypeProperty, IRepository<Models.DevicePropertyValue> repositoryDevicePropertyValue, IObjectMapper objectMapper)
@@ -32,9 +29,8 @@ namespace TestProjectBoilerplateCore.Services.DeviceType
 
         public List<DeviceTypeForListDto> GetAllDeviceTypes()
         {
-             var getAll = _repositoryDeviceType.GetAll().Include(c => c.ParentDeviceType)
-                .ToList();
-            List<DeviceTypeForListDto> getAllMap = _objectMapper.Map<List<DeviceTypeForListDto>>(getAll);
+             var getAll = _repositoryDeviceType.GetAll().Include(c => c.ParentDeviceType).ToList();
+             var getAllMap = _objectMapper.Map<List<DeviceTypeForListDto>>(getAll);
 
             return getAllMap;
         }

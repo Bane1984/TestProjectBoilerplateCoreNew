@@ -1,26 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Abp.Domain.Repositories;
+﻿using Abp.Domain.Repositories;
 using Abp.ObjectMapping;
-using Castle.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 using TestProjectBoilerplateCore.DTO;
-using TestProjectBoilerplateCore.Models;
 
 namespace TestProjectBoilerplateCore.Services.Device
 {
     public class DeviceService:TestProjectBoilerplateCoreAppServiceBase, IDeviceService
     {
         private readonly IRepository<Models.Device> _repositoryDevice;
-        private readonly IRepository<Models.DeviceType> _repositoryDeviceType;
         private readonly IRepository<Models.DeviceTypeProperty> _repositoryDeviceTypeProperty;
         private readonly IRepository<Models.DevicePropertyValue> _repositoryDevicePropertyValue;
         private readonly IObjectMapper _objectMapper;
 
-        public DeviceService(IRepository<Models.Device> repositoryDevice, IRepository<Models.DeviceType> repositoryDeviceType, IRepository<Models.DeviceTypeProperty> repositoryDeviceTypeProperty, IRepository<Models.DevicePropertyValue> repositoryDevicePropertyValue, IObjectMapper objectMapper)
+        public DeviceService(IRepository<Models.Device> repositoryDevice, IRepository<Models.DeviceTypeProperty> repositoryDeviceTypeProperty, IRepository<Models.DevicePropertyValue> repositoryDevicePropertyValue, IObjectMapper objectMapper)
         {
             _repositoryDevice = repositoryDevice;
-            _repositoryDeviceType = repositoryDeviceType;
             _repositoryDeviceTypeProperty = repositoryDeviceTypeProperty;
             _repositoryDevicePropertyValue = repositoryDevicePropertyValue;
             _objectMapper = objectMapper;
@@ -34,11 +30,12 @@ namespace TestProjectBoilerplateCore.Services.Device
             return addMap;
         }
 
-        public Models.Device GetByIdDevice(int id)
+        public DeviceDto GetByIdDevice(int id)
         {
             var deviceById = _repositoryDevice.GetAll().Include(c => c.DeviceType)
                 .ThenInclude(c => c.DeviceTypeProperties).FirstOrDefault(c => c.Id == id);
-            return deviceById;
+            var deviceId = _objectMapper.Map<DeviceDto>(deviceById);
+            return deviceId;
         }
 
         //public void InsertDeviceType(List<Models.Device> devices)
@@ -142,6 +139,14 @@ namespace TestProjectBoilerplateCore.Services.Device
 
         }
 
+        
+        public List<Models.Device> QuerySearch(QueryInfo.QueryInfo query)
+        {
+            var device = _repositoryDevice.GetAll().ToList();
+            var queryResult = query.QueriInfoExpression<Models.Device>(query, device);
+
+            return queryResult.ToList();
+        }
 
     }
 }

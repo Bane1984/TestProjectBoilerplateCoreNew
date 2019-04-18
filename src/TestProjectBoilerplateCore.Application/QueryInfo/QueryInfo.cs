@@ -1,11 +1,9 @@
-﻿using System;
+﻿using Abp.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using Abp.Domain.Entities;
-using Abp.UI;
 
 namespace TestProjectBoilerplateCore.QueryInfo
 {
@@ -88,7 +86,7 @@ namespace TestProjectBoilerplateCore.QueryInfo
         }
 
         //AndOr ekpsresija
-        public Expression AndOrExpresion<Tentity>(ParameterExpression param, List<RuleInfo> rules, string condition)
+        public Expression AndOrExpresion<TEntity>(ParameterExpression param, List<RuleInfo> rules, string condition)
         {
             //true/false zadati 
             var tacno = Expression.Constant(true, typeof(bool));
@@ -144,10 +142,10 @@ namespace TestProjectBoilerplateCore.QueryInfo
                 switch (condition.ToUpper())
                 {
                     case "AND":
-                        andOr = Expression.AndAlso(andOr, AndOrExpresion<Tentity>(param, rule.Rules, rule.Condition));
+                        andOr = Expression.AndAlso(andOr, AndOrExpresion<TEntity>(param, rule.Rules, rule.Condition));
                         break;
                     case "OR":
-                        andOr = Expression.OrElse(andOr, AndOrExpresion<Tentity>(param, rule.Rules, rule.Condition));
+                        andOr = Expression.OrElse(andOr, AndOrExpresion<TEntity>(param, rule.Rules, rule.Condition));
                         break;
                     default:
                         throw new UserFriendlyException("Nedefinisan condition.");
@@ -183,7 +181,39 @@ namespace TestProjectBoilerplateCore.QueryInfo
 
 
             //zavrsiti QueryInfo 
+            bool sorter = false;
 
+            foreach (var sortt in sort)
+            {
+                switch (sortt.SortDirection.ToUpper())
+                {
+                    case "ASC":
+                        if (sorter == false)
+                        {
+                            listaNew = listaNew.OrderBy(OrderExp<TEntity>(param, sortt));
+                            sorter = true;
+                            break;
+                        }
+
+                        var thenLista = listaNew as IOrderedQueryable<TEntity>;
+                        listaNew = thenLista.ThenBy(OrderExp<TEntity>(param, sortt));
+                        break;
+
+                    case "DSC":
+                        if (sorter == false)
+                        {
+                            listaNew = listaNew.OrderByDescending(OrderExp<TEntity>(param, sortt));
+                            sorter = true;
+                            break;
+                        }
+
+                        var thenListaa = listaNew as IOrderedQueryable<TEntity>;
+                        listaNew = thenListaa.ThenBy(OrderExp<TEntity>(param, sortt));
+                        break;
+                }
+            }
+
+            listaNew = listaNew.Skip(query.Skip).Take(query.Take);
 
             return listaNew;
         }
