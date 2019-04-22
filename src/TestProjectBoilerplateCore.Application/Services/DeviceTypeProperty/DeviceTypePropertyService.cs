@@ -2,11 +2,13 @@
 using Abp.ObjectMapping;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using TestProjectBoilerplateCore.DTO;
 
 namespace TestProjectBoilerplateCore.Services.DeviceTypeProperty
 {
+    [Authorize]
     public class DeviceTypePropertyService:TestProjectBoilerplateCoreAppServiceBase, IDeviceTypePropertyService
     {
         private readonly IRepository<Models.Device> _repositoryDevice;

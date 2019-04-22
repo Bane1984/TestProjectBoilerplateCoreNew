@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.ObjectMapping;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using TestProjectBoilerplateCore.DTO;
 //u cijeloj strukturi prvo kreiramo DeviceType, u njemu propertije a zatim kreiramo Device..
 namespace TestProjectBoilerplateCore.Services.DeviceType
 {
+    [Authorize]
     public class DeviceTypeService:TestProjectBoilerplateCoreAppServiceBase, IDeviceTypeService
     {
         private readonly IRepository<Models.Device> _repositoryDevice;

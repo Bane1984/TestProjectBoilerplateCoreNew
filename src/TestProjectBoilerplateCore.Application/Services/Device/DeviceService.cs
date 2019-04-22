@@ -1,5 +1,6 @@
 ﻿using Abp.Domain.Repositories;
 using Abp.ObjectMapping;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using TestProjectBoilerplateCore.DTO;
 
 namespace TestProjectBoilerplateCore.Services.Device
 {
+    [Authorize]
     public class DeviceService:TestProjectBoilerplateCoreAppServiceBase, IDeviceService
     {
         private readonly IRepository<Models.Device> _repositoryDevice;

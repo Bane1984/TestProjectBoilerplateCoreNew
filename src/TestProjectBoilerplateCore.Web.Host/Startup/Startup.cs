@@ -32,6 +32,14 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("Bearer")
+                .AddIdentityServerAuthentication(options =>
+                {
+                    options.Authority = "http://localhost:5000";
+                    options.RequireHttpsMetadata = false;
+                    options.ApiName = "testProjectBoilerplateCoreApplication";
+                });
+
             // MVC
             services.AddMvc(
                 options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName))
@@ -102,6 +110,8 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
             {
                 routes.MapHub<AbpCommonHub>("/signalr");
             });
+
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
