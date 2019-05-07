@@ -11,6 +11,7 @@ namespace TestProjectBoilerplateCore.DTO
 
         public int? Parentid { get; set; }
 
+        //promijeniti Children u Items
         public List<DeviceTypeNestedDto> Children { get; set; } = new List<DeviceTypeNestedDto>();
     }
 }

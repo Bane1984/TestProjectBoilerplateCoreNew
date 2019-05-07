@@ -6,6 +6,11 @@ namespace TestProjectBoilerplateCore.Authentication.JwtBearer
 {
     public static class JwtTokenMiddleware
     {
+        public static IApplicationBuilder UseJwtTokenMiddleware(this IApplicationBuilder app)
+        {
+            return UseJwtTokenMiddleware(app, JwtBearerDefaults.AuthenticationScheme);
+        }
+
         public static IApplicationBuilder UseJwtTokenMiddleware(this IApplicationBuilder app, string schema = JwtBearerDefaults.AuthenticationScheme)
         {
             return app.Use(async (ctx, next) =>

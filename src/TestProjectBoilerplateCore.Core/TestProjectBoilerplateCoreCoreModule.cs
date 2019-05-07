@@ -12,7 +12,7 @@ using TestProjectBoilerplateCore.Timing;
 
 namespace TestProjectBoilerplateCore
 {
-    [DependsOn(typeof(AbpZeroCoreModule))]
+    [DependsOn(typeof(AbpZeroCoreModule)                                                                   )]
     public class TestProjectBoilerplateCoreCoreModule : AbpModule
     {
         public override void PreInitialize()

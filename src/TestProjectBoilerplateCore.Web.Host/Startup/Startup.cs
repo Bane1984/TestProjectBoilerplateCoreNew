@@ -16,6 +16,10 @@ using TestProjectBoilerplateCore.Configuration;
 using TestProjectBoilerplateCore.Identity;
 
 using Abp.AspNetCore.SignalR.Hubs;
+using Abp.IdentityServer4;
+using TestProjectBoilerplateCore.Authentication.JwtBearer;
+using TestProjectBoilerplateCore.Authorization.Users;
+//using TestProjectBoilerplateCore.IdentityServer4;
 
 namespace TestProjectBoilerplateCore.Web.Host.Startup
 {
@@ -32,6 +36,23 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddIdentityServer()
+            //    .AddDeveloperSigningCredential()
+            //    .AddInMemoryIdentityResources(IdentityServerConfig.GetIdentityResources())
+            //    .AddInMemoryApiResources(IdentityServerConfig.GetApiResources())
+            //    .AddInMemoryClients(IdentityServerConfig.GetClients())
+            //    .AddAbpPersistedGrants<IAbpPersistedGrantDbContext>()
+            //    .AddAbpIdentityServer<User>();
+
+            //services.AddAuthentication()
+            //    .AddIdentityServerAuthentication("IdentityBearer", options =>
+            //    {
+            //        options.Authority = "http://localhost:5000";
+            //        options.RequireHttpsMetadata = false;
+            //        options.ApiName = "testProjectBoilerplateCoreApplication";
+            //    });
+
             // MVC
             services.AddMvc(
                 options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName))
@@ -59,7 +80,7 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
                         .AllowCredentials()
                 )
             );
-
+            //problem sa gitom, commit
             // Swagger - Enable this line and the related lines in Configure method to enable swagger UI
             services.AddSwaggerGen(options =>
             {
@@ -92,6 +113,8 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
             app.UseCors(_defaultCorsPolicyName); // Enable CORS!
 
             app.UseStaticFiles();
+
+            app.UseJwtTokenMiddleware("IdentityBearer");
 
             app.UseAuthentication();
 

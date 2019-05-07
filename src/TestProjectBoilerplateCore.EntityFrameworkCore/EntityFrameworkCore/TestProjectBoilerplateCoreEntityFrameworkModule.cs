@@ -1,4 +1,5 @@
 ﻿using Abp.EntityFrameworkCore.Configuration;
+using Abp.IdentityServer4;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.EntityFrameworkCore;
@@ -8,7 +9,7 @@ namespace TestProjectBoilerplateCore.EntityFrameworkCore
 {
     [DependsOn(
         typeof(TestProjectBoilerplateCoreCoreModule), 
-        typeof(AbpZeroCoreEntityFrameworkCoreModule))]
+        typeof(AbpZeroCoreEntityFrameworkCoreModule), typeof(AbpZeroCoreIdentityServerEntityFrameworkCoreModule))]
     public class TestProjectBoilerplateCoreEntityFrameworkModule : AbpModule
     {
         /* Used it tests to skip dbcontext registration, in order to use in-memory database of EF Core */
