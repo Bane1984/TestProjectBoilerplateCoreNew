@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using IdentityModel;
+﻿using IdentityModel;
 using IdentityServer4.Test;
+using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace TestProjectBoilerplateCore.IdentityServer4.Models
 {

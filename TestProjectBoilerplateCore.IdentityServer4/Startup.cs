@@ -1,13 +1,11 @@
-﻿using System;
-using Abp.AspNetCore;
+﻿using Abp.AspNetCore;
 using Abp.Castle.Logging.Log4Net;
 using Abp.IdentityServer4;
 using Castle.Facilities.Logging;
-using IdentityServer4.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using TestProjectBoilerplateCore.Authorization.Users;
 using TestProjectBoilerplateCore.EntityFrameworkCore;
 using TestProjectBoilerplateCore.Identity;
@@ -26,19 +24,11 @@ namespace TestProjectBoilerplateCore.IdentityServer4
 
             services.AddMvc();
 
-            //services.AddIdentityServer()
-            //    .AddInMemoryClients(Clients.Get())
-            //    .AddInMemoryIdentityResources(Resources.GetIdentityResources())
-            //    .AddInMemoryApiResources(Resources.GetApiResources())
-            //    .AddTestUsers(Users.Get());
-            //.AddDeveloperSigningCredential();
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<TestProjectBoilerplateCoreDbContext>().AddDefaultTokenProviders();
-
             services.AddIdentityServer()
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryIdentityResources(Resources.GetIdentityResources()) 
                 .AddInMemoryApiResources(Resources.GetApiResources())
-                //.AddDeveloperSigningCredential()
+                .AddDeveloperSigningCredential()
                 .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u 
                 .AddAbpIdentityServer<User>();
 

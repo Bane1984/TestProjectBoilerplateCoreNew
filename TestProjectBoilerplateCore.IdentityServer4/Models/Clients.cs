@@ -31,9 +31,9 @@ namespace TestProjectBoilerplateCore.IdentityServer4.Models
                     AllowedGrantTypes = GrantTypes.Implicit,
                     ClientSecrets = {new Secret("secret".Sha256())},
                     RequireClientSecret = false,
-                    RedirectUris = {"http://localhost:5000/signin-oidc"},
-                    FrontChannelLogoutUri = "http://localhost:5000/signout-oidc",
-                    PostLogoutRedirectUris = {"http://localhost:5000/signout-callback-oidc"},
+                    RedirectUris = {"http://127.0.0.1:5000/signin-oidc"},
+                    FrontChannelLogoutUri = "http://127.0.0.1:5000/signout-oidc",
+                    PostLogoutRedirectUris = {"http://127.0.0.1:5000/signout-callback-oidc"},
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,

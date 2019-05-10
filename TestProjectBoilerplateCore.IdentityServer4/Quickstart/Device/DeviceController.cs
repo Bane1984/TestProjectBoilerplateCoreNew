@@ -5,6 +5,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Abp.AspNetCore.Mvc.Controllers;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
@@ -18,7 +19,7 @@ namespace IdentityServer4.Quickstart.UI.Device
 {
     [Authorize]
     [SecurityHeaders]
-    public class DeviceController : Controller
+    public class DeviceController : AbpController
     {
         private readonly IDeviceFlowInteractionService _interaction;
         private readonly IClientStore _clientStore;

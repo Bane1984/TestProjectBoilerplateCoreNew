@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Abp.Modules;
+﻿using Abp.Modules;
 using Abp.Reflection.Extensions;
-using TestProjectBoilerplateCore;
 
 namespace TestProjectBoilerplateCore.IdentityServer4
 {
