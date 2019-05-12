@@ -26,14 +26,14 @@ namespace TestProjectBoilerplateCore.IdentityServer4.Models
 
                 new Client
                 {
+                    RequireConsent = false,
                     ClientId = "TestProjectAbp",
                     ClientName = "Abp Host",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     ClientSecrets = {new Secret("secret".Sha256())},
-                    RequireClientSecret = false,
-                    RedirectUris = {"http://127.0.0.1:5000/signin-oidc"},
-                    FrontChannelLogoutUri = "http://127.0.0.1:5000/signout-oidc",
-                    PostLogoutRedirectUris = {"http://127.0.0.1:5000/signout-callback-oidc"},
+                    RedirectUris = {"http://localhost:21021/signin-oidc"},
+                    FrontChannelLogoutUri = "http://localhost:21021/signout-oidc",
+                    PostLogoutRedirectUris = {"http://localhost:21021/signout-callback-oidc"},
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,

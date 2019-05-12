@@ -55,6 +55,12 @@ namespace TestProjectBoilerplateCore.IdentityServer4
             app.UseIdentityServer();
             app.UseMvcWithDefaultRoute();
 
+
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+            app.Run(async (context) =>
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+            {
+            });
             //app.Run(async (context) =>
             //{
             //    await context.Response.WriteAsync("Hello World!");

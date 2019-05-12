@@ -161,3 +161,21 @@ DEBUG 2019-05-10 14:20:10,506 [1    ] Abp.Localization.LocalizationManager     -
 DEBUG 2019-05-10 14:20:10,549 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
 DEBUG 2019-05-10 14:20:10,826 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Castle.Proxies.BackgroundJobManagerProxy
 INFO  2019-05-10 14:20:10,841 [1    ] IdentityServer4.Startup                  - Starting IdentityServer4 version 2.3.2.0
+DEBUG 2019-05-12 20:03:16,905 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2019-05-12 20:03:16,929 [1    ] Abp.Modules.AbpModuleManager             - Found 2 ABP modules in total.
+DEBUG 2019-05-12 20:03:16,939 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: TestProjectBoilerplateCore.IdentityServer4.TestProjectBoilerplateCoreWebCoreModule, TestProjectBoilerplateCore.IdentityServer4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2019-05-12 20:03:16,943 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=4.5.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2019-05-12 20:03:16,946 [1    ] Abp.Modules.AbpModuleManager             - 2 modules loaded.
+DEBUG 2019-05-12 20:03:17,366 [1    ] Abp.Localization.LocalizationManager     - Initializing 1 localization sources.
+DEBUG 2019-05-12 20:03:17,391 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2019-05-12 20:03:17,795 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Castle.Proxies.BackgroundJobManagerProxy
+INFO  2019-05-12 20:03:17,831 [1    ] IdentityServer4.Startup                  - Starting IdentityServer4 version 2.3.2.0
+DEBUG 2019-05-12 20:16:21,753 [1    ] Abp.Modules.AbpModuleManager             - Loading Abp modules...
+DEBUG 2019-05-12 20:16:21,795 [1    ] Abp.Modules.AbpModuleManager             - Found 2 ABP modules in total.
+DEBUG 2019-05-12 20:16:21,808 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: TestProjectBoilerplateCore.IdentityServer4.TestProjectBoilerplateCoreWebCoreModule, TestProjectBoilerplateCore.IdentityServer4, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2019-05-12 20:16:21,815 [1    ] Abp.Modules.AbpModuleManager             - Loaded module: Abp.AbpKernelModule, Abp, Version=4.5.0.0, Culture=neutral, PublicKeyToken=null
+DEBUG 2019-05-12 20:16:21,822 [1    ] Abp.Modules.AbpModuleManager             - 2 modules loaded.
+DEBUG 2019-05-12 20:16:22,247 [1    ] Abp.Localization.LocalizationManager     - Initializing 1 localization sources.
+DEBUG 2019-05-12 20:16:22,294 [1    ] Abp.Localization.LocalizationManager     - Initialized localization source: Abp
+DEBUG 2019-05-12 20:16:22,965 [1    ] Abp.BackgroundJobs.BackgroundJobManager  - Start background worker: Castle.Proxies.BackgroundJobManagerProxy
+INFO  2019-05-12 20:16:23,006 [1    ] IdentityServer4.Startup                  - Starting IdentityServer4 version 2.3.2.0

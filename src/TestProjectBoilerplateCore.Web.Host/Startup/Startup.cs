@@ -97,7 +97,8 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
 
             app.UseStaticFiles();
 
-            app.UseJwtTokenMiddleware("IdentityBearer");
+
+            //app.UseJwtTokenMiddleware("IdentityBearer");
 
             app.UseAuthentication();
 
