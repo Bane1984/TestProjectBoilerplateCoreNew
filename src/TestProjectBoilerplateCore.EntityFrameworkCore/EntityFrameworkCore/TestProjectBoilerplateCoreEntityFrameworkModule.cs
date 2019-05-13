@@ -8,8 +8,10 @@ using TestProjectBoilerplateCore.EntityFrameworkCore.Seed;
 namespace TestProjectBoilerplateCore.EntityFrameworkCore
 {
     [DependsOn(
-        typeof(TestProjectBoilerplateCoreCoreModule), 
-        typeof(AbpZeroCoreEntityFrameworkCoreModule), typeof(AbpZeroCoreIdentityServerEntityFrameworkCoreModule))]
+        typeof(TestProjectBoilerplateCoreCoreModule),
+        typeof(AbpZeroCoreEntityFrameworkCoreModule),
+        typeof(AbpZeroCoreIdentityServerEntityFrameworkCoreModule))]
+
     public class TestProjectBoilerplateCoreEntityFrameworkModule : AbpModule
     {
         /* Used it tests to skip dbcontext registration, in order to use in-memory database of EF Core */

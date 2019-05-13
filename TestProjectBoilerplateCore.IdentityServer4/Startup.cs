@@ -10,7 +10,7 @@ using TestProjectBoilerplateCore.Authorization.Users;
 using TestProjectBoilerplateCore.EntityFrameworkCore;
 using TestProjectBoilerplateCore.Identity;
 using TestProjectBoilerplateCore.IdentityServer4.Models;
-using Resources = TestProjectBoilerplateCore.IdentityServer4.Models.Resources;
+//using Resources = TestProjectBoilerplateCore.IdentityServer4.Models.Resources;
 
 namespace TestProjectBoilerplateCore.IdentityServer4
 {
@@ -25,16 +25,19 @@ namespace TestProjectBoilerplateCore.IdentityServer4
             services.AddMvc();
 
             services.AddIdentityServer()
+                .AddDeveloperSigningCredential()
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryIdentityResources(Resources.GetIdentityResources()) 
                 .AddInMemoryApiResources(Resources.GetApiResources())
-                .AddDeveloperSigningCredential()
-                .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u 
+                //.AddTestUsers(Models.Users.Get())
+                
+                // .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u 
+                .AddInMemoryPersistedGrants()
                 .AddAbpIdentityServer<User>();
 
 
             //dodati Nuget paket Abp.Castle.Log4Net za UseAbpLog4Net - u njemu je definisana metoda UseAbpLog4Net()
-            return services.AddAbp<TestProjectBoilerplateCoreWebCoreModule>(
+            return services.AddAbp<TestProjectBoilerplateCoreIdentityModule>(
                 options => options.IocManager.IocContainer.AddFacility<LoggingFacility>(
                     f => f.UseAbpLog4Net().WithConfig("log4net.config")
                 )

@@ -9,6 +9,8 @@
     <PackageReference Include="Abp.AspNetZeroCore.Web" Version="1.2.2" />
     <PackageReference Include="Abp.Castle.Log4Net" Version="4.5.0" />
     <PackageReference Include="Abp.ZeroCore.IdentityServer4" Version="4.5.0" />
+    <PackageReference Include="Abp.ZeroCore.IdentityServer4.EntityFrameworkCore" Version="4.5.0" />
+    <PackageReference Include="IdentityServer4" Version="2.4.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
@@ -17,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\TestProjectBoilerplateCore.EntityFrameworkCore\TestProjectBoilerplateCore.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\src\TestProjectBoilerplateCore.Web.Core\TestProjectBoilerplateCore.Web.Core.csproj" />
   </ItemGroup>
 
 </Project>

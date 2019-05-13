@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TestProjectBoilerplateCore.Migrations
 {
-    public partial class _12Apr2019 : Migration
+    public partial class addPersistedGrants : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

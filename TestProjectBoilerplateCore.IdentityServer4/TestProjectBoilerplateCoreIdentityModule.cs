@@ -1,11 +1,13 @@
 ﻿using Abp.Modules;
 using Abp.Reflection.Extensions;
+using Abp.Zero;
 
 namespace TestProjectBoilerplateCore.IdentityServer4
 {
-    public class TestProjectBoilerplateCoreWebCoreModule:AbpModule
+    public class TestProjectBoilerplateCoreIdentityModule:AbpModule
     {
-        [DependsOn(typeof(TestProjectBoilerplateCoreWebCoreModule))]
+        [DependsOn(typeof(TestProjectBoilerplateCoreWebCoreModule),
+            typeof(AbpZeroCommonModule))]
         public class IdentityServerServiceModule : AbpModule
         {
             public override void PreInitialize()

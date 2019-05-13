@@ -18,8 +18,8 @@ namespace TestProjectBoilerplateCore
     [DependsOn(
          typeof(TestProjectBoilerplateCoreApplicationModule),
          typeof(TestProjectBoilerplateCoreEntityFrameworkModule),
-         typeof(AbpAspNetCoreModule)
-        ,typeof(AbpAspNetCoreSignalRModule)
+         typeof(AbpAspNetCoreModule),
+         typeof(AbpAspNetCoreSignalRModule)
      )]
     public class TestProjectBoilerplateCoreWebCoreModule : AbpModule
     {

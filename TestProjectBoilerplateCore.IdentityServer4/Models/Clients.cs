@@ -26,19 +26,20 @@ namespace TestProjectBoilerplateCore.IdentityServer4.Models
 
                 new Client
                 {
-                    RequireConsent = false,
                     ClientId = "TestProjectAbp",
                     ClientName = "Abp Host",
                     AllowedGrantTypes = GrantTypes.Implicit,
                     ClientSecrets = {new Secret("secret".Sha256())},
                     RedirectUris = {"http://localhost:21021/signin-oidc"},
-                    FrontChannelLogoutUri = "http://localhost:21021/signout-oidc",
                     PostLogoutRedirectUris = {"http://localhost:21021/signout-callback-oidc"},
+                    FrontChannelLogoutUri = "http://localhost:21021/signout-oidc",
+
+                    RequireConsent = false,
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
-                        IdentityServerConstants.StandardScopes.Email
+                        IdentityServerConstants.StandardScopes.Profile
+                        //IdentityServerConstants.StandardScopes.Email
                     }
                 }
             };

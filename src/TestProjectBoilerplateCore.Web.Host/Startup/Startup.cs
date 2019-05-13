@@ -36,6 +36,26 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultScheme = AuthentificationClass.Cookie;
+                    options.DefaultChallengeScheme = AuthentificationClass.OpenIdConnected;
+                })
+                .AddCookie(AuthentificationClass.Cookie)
+                .AddOpenIdConnect(AuthentificationClass.OpenIdConnected,
+                    options =>
+                    {
+
+                        options.Authority = "http://localhost:50219";
+                        options.ClientId = "hostClient";
+                        options.RequireHttpsMetadata = false;
+                        options.SignInScheme = AuthentificationClass.Cookie;
+                        options.ResponseType = "id_token";
+                        options.SaveTokens = true;
+
+
+                    });
+
             // MVC
             services.AddMvc(
                 options => options.Filters.Add(new CorsAuthorizationFilterFactory(_defaultCorsPolicyName))

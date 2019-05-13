@@ -10,8 +10,8 @@ using TestProjectBoilerplateCore.EntityFrameworkCore;
 namespace TestProjectBoilerplateCore.Migrations
 {
     [DbContext(typeof(TestProjectBoilerplateCoreDbContext))]
-    [Migration("20190507125953_identityMigracijaUser")]
-    partial class identityMigracijaUser
+    [Migration("20190513104925_addPersistedGrants")]
+    partial class addPersistedGrants
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

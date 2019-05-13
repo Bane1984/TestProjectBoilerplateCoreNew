@@ -17,6 +17,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Abp.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Identity;
+using TestProjectBoilerplateCore.Authorization.Users;
+using TestProjectBoilerplateCore.Identity;
 
 namespace IdentityServer4.Quickstart.UI
 {
@@ -35,11 +38,16 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
 
+        private readonly UserManager _userManager;
+        private readonly SignInManager _signInManager;
+
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
             IEventService events,
+            UserManager userManager, 
+            SignInManager signInManager,
             TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
@@ -50,6 +58,8 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         /// <summary>
@@ -109,11 +119,13 @@ namespace IdentityServer4.Quickstart.UI
 
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(model.Username);
+                var validated = await _userManager.CheckPasswordAsync(user, model.Password);
                 // validate username/password against in-memory store
-                if (_users.ValidateCredentials(model.Username, model.Password))
+                if (validated)
                 {
-                    var user = _users.FindByUsername(model.Username);
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
+                    //var user = _users.FindByUsername(model.Username);
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.Name));
 
                     // only set explicit expiration here if user chooses "remember me". 
                     // otherwise we rely upon expiration configured in cookie middleware.
@@ -128,7 +140,9 @@ namespace IdentityServer4.Quickstart.UI
                     };
 
                     // issue authentication cookie with subject ID and username
-                    await HttpContext.SignInAsync(user.SubjectId, user.Username, props);
+                    //await HttpContext.SignInAsync(user.Id.ToString(), user.Name, props);
+
+                    await _signInManager.SignInAsync(user, true);
 
                     if (context != null)
                     {
@@ -201,7 +215,7 @@ namespace IdentityServer4.Quickstart.UI
             if (User?.Identity.IsAuthenticated == true)
             {
                 // delete local authentication cookie
-                await HttpContext.SignOutAsync();
+                await _signInManager.SignOutAsync();
 
                 // raise the logout event
                 await _events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));
