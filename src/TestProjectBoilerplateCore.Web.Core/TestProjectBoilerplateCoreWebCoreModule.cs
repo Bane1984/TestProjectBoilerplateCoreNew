@@ -49,7 +49,7 @@ namespace TestProjectBoilerplateCore
             //ConfigureTokenAuth();
         }
 
-        //private void ConfigureTokenAuth()
+       // private void ConfigureTokenAuth()
         //{
         //    IocManager.Register<TokenAuthConfiguration>();
         //    var tokenAuthConfig = IocManager.Resolve<TokenAuthConfiguration>();

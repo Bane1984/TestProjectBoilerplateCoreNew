@@ -1,14 +1,14 @@
-﻿using Abp.Modules;
+﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
+// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+
+
+using Abp.Modules;
 using Abp.Reflection.Extensions;
-using Abp.Zero;
 
 namespace TestProjectBoilerplateCore.IdentityServer4
 {
-    public class TestProjectBoilerplateCoreIdentityModule:AbpModule
-    {
-        [DependsOn(typeof(TestProjectBoilerplateCoreWebCoreModule),
-            typeof(AbpZeroCommonModule))]
-        public class IdentityServerServiceModule : AbpModule
+    [DependsOn(typeof(TestProjectBoilerplateCoreWebCoreModule))]
+        public class TestProjectBoilerplateCoreIdentityModule : AbpModule
         {
             public override void PreInitialize()
             {
@@ -17,8 +17,7 @@ namespace TestProjectBoilerplateCore.IdentityServer4
 
             public override void Initialize()
             {
-                IocManager.RegisterAssemblyByConvention(typeof(IdentityServerServiceModule).GetAssembly());
+                IocManager.RegisterAssemblyByConvention(typeof(TestProjectBoilerplateCoreIdentityModule).GetAssembly());
             }
         }
-    }
 }

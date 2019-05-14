@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using IdentityServer4.Services;
+using IdentityServer4.Stores;
 using TestProjectBoilerplateCore.Authorization.Users;
 using TestProjectBoilerplateCore.EntityFrameworkCore;
 using TestProjectBoilerplateCore.Identity;
@@ -26,14 +28,15 @@ namespace TestProjectBoilerplateCore.IdentityServer4
 
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
-                .AddInMemoryClients(Clients.Get())
-                .AddInMemoryIdentityResources(Resources.GetIdentityResources()) 
+                .AddInMemoryIdentityResources(Resources.GetIdentityResources())
                 .AddInMemoryApiResources(Resources.GetApiResources())
-                //.AddTestUsers(Models.Users.Get())
-                
-                // .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u 
-                .AddInMemoryPersistedGrants()
+                .AddInMemoryClients(Clients.Get())
+                .AddTestUsers(Models.Users.Get())
+
+                .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u Abp EntityFrameworkCore projektu
+                //.AddInMemoryPersistedGrants()
                 .AddAbpIdentityServer<User>();
+                //.Services.AddTransient<IPersistedGrantStore, AbpPersistedGrantStore > ();
 
 
             //dodati Nuget paket Abp.Castle.Log4Net za UseAbpLog4Net - u njemu je definisana metoda UseAbpLog4Net()
@@ -59,15 +62,15 @@ namespace TestProjectBoilerplateCore.IdentityServer4
             app.UseMvcWithDefaultRoute();
 
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+//#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+//            app.Run(async (context) =>
+//#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+//            {
+//            });
             app.Run(async (context) =>
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
             {
-            });
-            //app.Run(async (context) =>
-            //{
             //    await context.Response.WriteAsync("Hello World!");
-            //});
+            });
         }
     }
 }

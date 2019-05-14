@@ -12,6 +12,7 @@
     <Compile Remove="Migrations\20180927062408_test.cs" />
     <Compile Remove="Migrations\20190111071724_Upgraded_To_Abp_v4_1_0.cs" />
     <Compile Remove="Migrations\20190513104114_addPersistedGrants.cs" />
+    <Compile Remove="Migrations\20190514114745_testNovaMigracija.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Abp.ZeroCore.IdentityServer4.EntityFrameworkCore" Version="4.5.0" />

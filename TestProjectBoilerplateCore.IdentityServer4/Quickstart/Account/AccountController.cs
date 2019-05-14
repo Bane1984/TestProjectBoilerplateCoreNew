@@ -120,24 +120,24 @@ namespace IdentityServer4.Quickstart.UI
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.Username);
-                var validated = await _userManager.CheckPasswordAsync(user, model.Password);
+                var validated = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberLogin, false);
                 // validate username/password against in-memory store
-                if (validated)
+                if (validated.Succeeded)
                 {
                     //var user = _users.FindByUsername(model.Username);
                     await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.Name));
 
                     // only set explicit expiration here if user chooses "remember me". 
                     // otherwise we rely upon expiration configured in cookie middleware.
-                    AuthenticationProperties props = null;
-                    if (AccountOptions.AllowRememberLogin && model.RememberLogin)
-                    {
-                        props = new AuthenticationProperties
-                        {
-                            IsPersistent = true,
-                            ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
-                        };
-                    };
+                    //AuthenticationProperties props = null;
+                    //if (AccountOptions.AllowRememberLogin && model.RememberLogin)
+                    //{
+                    //    props = new AuthenticationProperties
+                    //    {
+                    //        IsPersistent = true,
+                    //        ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
+                    //    };
+                    //};
 
                     // issue authentication cookie with subject ID and username
                     //await HttpContext.SignInAsync(user.Id.ToString(), user.Name, props);
