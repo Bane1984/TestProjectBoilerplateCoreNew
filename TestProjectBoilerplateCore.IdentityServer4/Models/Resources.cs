@@ -11,11 +11,11 @@ namespace TestProjectBoilerplateCore.IdentityServer4.Models
             return new List<IdentityResource> {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email(),
-                new IdentityResource {
-                    Name = "role",
-                    UserClaims = new List<string> {"role"}
-                }
+                //new IdentityResources.Email(),
+                //new IdentityResource {
+                //    Name = "role",
+                //    UserClaims = new List<string> {"role"}
+                //}
             };
         }
 

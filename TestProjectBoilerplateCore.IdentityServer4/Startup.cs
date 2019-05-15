@@ -22,22 +22,28 @@ namespace TestProjectBoilerplateCore.IdentityServer4
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            IdentityRegistrar.Register(services);
-
             services.AddMvc();
 
+            IdentityRegistrar.Register(services);
+
+            //    .AddInMemoryIdentityResources(Resources.GetIdentityResources())
+            //    .AddInMemoryApiResources(Resources.GetApiResources())
+            //    .AddInMemoryClients(Clients.Get())
+            //    .AddTestUsers(Models.Users.Get())
+            //    .AddDeveloperSigningCredential()
+            //    .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u Abp EntityFrameworkCore projektu
+            //    //.AddInMemoryPersistedGrants()
+            //    .AddAbpIdentityServer<User>();
+            //    //.Services.AddTransient<IPersistedGrantStore, AbpPersistedGrantStore > ();
+
             services.AddIdentityServer()
-                .AddDeveloperSigningCredential()
+                .AddInMemoryClients(Clients.Get())
                 .AddInMemoryIdentityResources(Resources.GetIdentityResources())
                 .AddInMemoryApiResources(Resources.GetApiResources())
-                .AddInMemoryClients(Clients.Get())
-                .AddTestUsers(Models.Users.Get())
-
-                .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u Abp EntityFrameworkCore projektu
-                //.AddInMemoryPersistedGrants()
+                //.AddTestUsers(Models.Users.Get())
+                .AddDeveloperSigningCredential()
+                .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>()
                 .AddAbpIdentityServer<User>();
-                //.Services.AddTransient<IPersistedGrantStore, AbpPersistedGrantStore > ();
-
 
             //dodati Nuget paket Abp.Castle.Log4Net za UseAbpLog4Net - u njemu je definisana metoda UseAbpLog4Net()
             return services.AddAbp<TestProjectBoilerplateCoreIdentityModule>(
@@ -67,10 +73,10 @@ namespace TestProjectBoilerplateCore.IdentityServer4
 //#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 //            {
 //            });
-            app.Run(async (context) =>
-            {
-            //    await context.Response.WriteAsync("Hello World!");
-            });
+            //app.Run(async (context) =>
+            //{
+            ////    await context.Response.WriteAsync("Hello World!");
+            //});
         }
     }
 }

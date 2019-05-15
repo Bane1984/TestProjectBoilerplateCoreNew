@@ -17,6 +17,7 @@ using TestProjectBoilerplateCore.Identity;
 
 using Abp.AspNetCore.SignalR.Hubs;
 using Abp.IdentityServer4;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using TestProjectBoilerplateCore.Authentication.JwtBearer;
 using TestProjectBoilerplateCore.Authorization.Users;
 //using TestProjectBoilerplateCore.IdentityServer4;
@@ -36,6 +37,7 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            //services.AddIdentityServer();
             //services.AddAuthentication(options =>
             //    {
             //        options.DefaultScheme = AuthentificationClass.Cookie;
@@ -99,6 +101,16 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
                     Type = "apiKey"
                 });
             });
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    // base-address of your identityserver
+                    options.Authority = "http://localhost:50219/";
+
+                    // name of the API resource
+                    options.Audience = "api1";
+                });
 
             // Configure Abp and Dependency Injection
             return services.AddAbp<TestProjectBoilerplateCoreWebHostModule>(
