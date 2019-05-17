@@ -4,10 +4,10 @@
 
 using System.Linq;
 using System.Threading.Tasks;
-using Abp.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Abp.AspNetCore.Mvc.Controllers;
 
 namespace IdentityServer4.Quickstart.UI
 {

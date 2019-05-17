@@ -1,9 +1,12 @@
-﻿using IdentityModel;
-using IdentityServer4.Test;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using IdentityModel;
+using IdentityServer4.Test;
 
-namespace TestProjectBoilerplateCore.IdentityServer4.Models
+namespace IdentityServer4Abp.Models
 {
     internal class Users
     {

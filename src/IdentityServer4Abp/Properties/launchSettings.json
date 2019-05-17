@@ -3,8 +3,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:50219",
-      "sslPort": 44384
+      "applicationUrl": "http://localhost:50486",
+      "sslPort": 44346
     }
   },
   "profiles": {
@@ -15,17 +15,14 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "TestProjectBoilerplateCore.IdentityServer4": {
+    "IdentityServer4Abp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:50219",
+      "applicationUrl": "http://localhost:50486",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+
     }
   }
 }
-
-//"applicationUrl": "https://localhost:5001;http://localhost:5000"
-
-//"sslPort": 44384

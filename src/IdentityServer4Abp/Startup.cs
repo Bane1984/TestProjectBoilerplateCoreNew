@@ -1,20 +1,22 @@
-﻿using Abp.AspNetCore;
+﻿using System;
+using IdentityModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Abp.AspNetCore;
 using Abp.Castle.Logging.Log4Net;
 using Abp.IdentityServer4;
 using Castle.Facilities.Logging;
+using IdentityServer4Abp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using IdentityServer4.Services;
-using IdentityServer4.Stores;
 using TestProjectBoilerplateCore.Authorization.Users;
 using TestProjectBoilerplateCore.EntityFrameworkCore;
 using TestProjectBoilerplateCore.Identity;
-using TestProjectBoilerplateCore.IdentityServer4.Models;
-//using Resources = TestProjectBoilerplateCore.IdentityServer4.Models.Resources;
 
-namespace TestProjectBoilerplateCore.IdentityServer4
+namespace IdentityServer4Abp
 {
     public class Startup
     {
@@ -22,31 +24,43 @@ namespace TestProjectBoilerplateCore.IdentityServer4
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
 
+            services.AddMvc();
             IdentityRegistrar.Register(services);
 
-            //    .AddInMemoryIdentityResources(Resources.GetIdentityResources())
-            //    .AddInMemoryApiResources(Resources.GetApiResources())
-            //    .AddInMemoryClients(Clients.Get())
-            //    .AddTestUsers(Models.Users.Get())
-            //    .AddDeveloperSigningCredential()
-            //    .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>() //dodamo Abp-ov context koji se nalazi u Abp EntityFrameworkCore projektu
-            //    //.AddInMemoryPersistedGrants()
-            //    .AddAbpIdentityServer<User>();
-            //    //.Services.AddTransient<IPersistedGrantStore, AbpPersistedGrantStore > ();
 
             services.AddIdentityServer()
                 .AddInMemoryClients(Clients.Get())
                 .AddInMemoryIdentityResources(Resources.GetIdentityResources())
                 .AddInMemoryApiResources(Resources.GetApiResources())
-                //.AddTestUsers(Models.Users.Get())
+                //.AddTestUsers(Users.Get())
                 .AddDeveloperSigningCredential()
                 .AddAbpPersistedGrants<TestProjectBoilerplateCoreDbContext>()
                 .AddAbpIdentityServer<User>();
 
+            //services.AddIdentityServer()
+            //    .AddInMemoryClients(Clients.Get())
+            //    .AddInMemoryIdentityResources(Resources.GetIdentityResources())
+            //    .AddInMemoryApiResources(Resources.GetApiResources())
+            //    .AddTestUsers(Users.Get())
+            //    .AddDeveloperSigningCredential();
+
+            //services.AddAuthentication(options =>
+            //    {
+            //        options.DefaultScheme = "cookie";
+            //        options.DefaultChallengeScheme = "oidc";
+            //    })
+            //    .AddCookie("cookie")
+            //    .AddOpenIdConnect("oidc", options =>
+            //    {
+            //        options.Authority = "http://localhost:50486/";
+            //        options.ClientId = "openIdConnectClient";
+            //        options.SignInScheme = "cookie";
+            //        options.RequireHttpsMetadata = false;
+            //    });
+
             //dodati Nuget paket Abp.Castle.Log4Net za UseAbpLog4Net - u njemu je definisana metoda UseAbpLog4Net()
-            return services.AddAbp<TestProjectBoilerplateCoreIdentityModule>(
+            return services.AddAbp<IdentityServer4AbpModule>(
                 options => options.IocManager.IocContainer.AddFacility<LoggingFacility>(
                     f => f.UseAbpLog4Net().WithConfig("log4net.config")
                 )
@@ -64,18 +78,16 @@ namespace TestProjectBoilerplateCore.IdentityServer4
             app.UseAbp();
 
             app.UseStaticFiles();
+
             app.UseIdentityServer();
+
+            app.UseAuthentication();
+
             app.UseMvcWithDefaultRoute();
 
-
-//#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-//            app.Run(async (context) =>
-//#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
-//            {
-//            });
             //app.Run(async (context) =>
             //{
-            ////    await context.Response.WriteAsync("Hello World!");
+            //    await context.Response.WriteAsync("Hello World!");
             //});
         }
     }

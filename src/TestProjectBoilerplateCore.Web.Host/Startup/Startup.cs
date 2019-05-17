@@ -106,10 +106,10 @@ namespace TestProjectBoilerplateCore.Web.Host.Startup
                 .AddJwtBearer(options =>
                 {
                     // base-address of your identityserver
-                    options.Authority = "http://localhost:50219/";
+                    options.Authority = "http://localhost:50486/";
 
                     // name of the API resource
-                    options.Audience = "api1";
+                    options.Audience = "customAPI";
                 });
 
             // Configure Abp and Dependency Injection
