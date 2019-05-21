@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -6,10 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Abp.Castle.Log4Net" Version="4.5.0" />
-    <PackageReference Include="Abp.Web.Mvc" Version="4.5.0" />
-    <PackageReference Include="Abp.ZeroCore.IdentityServer4" Version="4.5.0" />
-    <PackageReference Include="Abp.ZeroCore.IdentityServer4.EntityFrameworkCore" Version="4.5.0" />
+    <PackageReference Include="Abp" Version="4.6.0" />
+    <PackageReference Include="Abp.Castle.Log4Net" Version="4.6.0" />
+    <PackageReference Include="Abp.Web.Mvc" Version="4.6.0" />
+    <PackageReference Include="Abp.ZeroCore.IdentityServer4" Version="4.6.0" />
+    <PackageReference Include="Abp.ZeroCore.IdentityServer4.EntityFrameworkCore" Version="4.6.0" />
     <PackageReference Include="IdentityServer4" Version="2.4.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="2.7.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -17,13 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TestProjectBoilerplateCore.Core\TestProjectBoilerplateCore.Core.csproj" />
+    <ProjectReference Include="..\TestProjectBoilerplateCore.EntityFrameworkCore\TestProjectBoilerplateCore.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\TestProjectBoilerplateCore.Web.Core\TestProjectBoilerplateCore.Web.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Abp.AspNetCore">
-      <HintPath>..\..\..\..\..\..\..\.nuget\packages\abp.aspnetcore\4.3.0\lib\netstandard2.0\Abp.AspNetCore.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>

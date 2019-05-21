@@ -25,7 +25,7 @@ namespace TestProjectBoilerplateCore.Migrations
                         column: x => x.ParentDeviceTypeId,
                         principalTable: "DeviceTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateTable(

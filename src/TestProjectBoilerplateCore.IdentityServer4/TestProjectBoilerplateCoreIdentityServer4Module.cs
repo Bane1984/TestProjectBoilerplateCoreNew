@@ -1,22 +1,22 @@
 ﻿using Abp.Modules;
 using Abp.Reflection.Extensions;
-using Abp.Web.Mvc.Configuration;
-using TestProjectBoilerplateCore;
 
-namespace IdentityServer4Abp
+namespace TestProjectBoilerplateCore.IdentityServer4
 {
     [DependsOn(typeof(TestProjectBoilerplateCoreWebCoreModule))]
-    public class IdentityServer4AbpModule:AbpModule
+    public class TestProjectBoilerplateCoreIdentityServer4Module:AbpModule
     {
+
         public override void PreInitialize()
         {
             Configuration.BackgroundJobs.IsJobExecutionEnabled = false;
-            //Configuration.Modules.AbpMvc().IsValidationEnabledForControllers = false;
         }
 
         public override void Initialize()
         {
-            IocManager.RegisterAssemblyByConvention(typeof(IdentityServer4AbpModule).GetAssembly());
+            IocManager.RegisterAssemblyByConvention(typeof(TestProjectBoilerplateCoreIdentityServer4Module).GetAssembly());
         }
     }
 }
+
+//TestProjectBoilerplateCoreWebCoreModule

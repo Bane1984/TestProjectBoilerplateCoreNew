@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
 
 
+using Abp.AspNetCore.Mvc.Controllers;
 using IdentityModel;
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
@@ -15,11 +16,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
-using Abp.AspNetCore.Mvc.Controllers;
-using TestProjectBoilerplateCore.Authorization.Users;
-using TestProjectBoilerplateCore.Identity;
 
 namespace IdentityServer4.Quickstart.UI
 {
@@ -37,15 +34,13 @@ namespace IdentityServer4.Quickstart.UI
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
-        private readonly UserManager _userManager;
-        private readonly SignInManager _signInManager;
-        private readonly UserStore _userStore;
 
         public AccountController(
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
-            IEventService events, UserManager userManager, SignInManager signInManager, UserStore userStore, TestUserStore users = null)
+            IEventService events,
+            TestUserStore users = null)
         {
             // if the TestUserStore is not in DI, then we'll just use the global users collection
             // this is where you would plug in your own custom identity management library (e.g. ASP.NET Identity)
@@ -55,9 +50,6 @@ namespace IdentityServer4.Quickstart.UI
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
             _events = events;
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _userStore = userStore;
         }
 
         /// <summary>
@@ -118,26 +110,25 @@ namespace IdentityServer4.Quickstart.UI
             if (ModelState.IsValid)
             {
                 // validate username/password against in-memory store
-                var user = await _userStore.FindByNameAsync(model.Username);
-
-                // issue authentication cookie with subject ID and username
-                var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberLogin, false);
-
-                if (signInResult.Succeeded)
+                if (_users.ValidateCredentials(model.Username, model.Password))
                 {
-                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.Id.ToString(), user.Name));
+                    var user = _users.FindByUsername(model.Username);
+                    await _events.RaiseAsync(new UserLoginSuccessEvent(user.Username, user.SubjectId, user.Username));
 
-                    //// only set explicit expiration here if user chooses "remember me". 
-                    //// otherwise we rely upon expiration configured in cookie middleware.
-                    //AuthenticationProperties props = null;
-                    //if (AccountOptions.AllowRememberLogin && model.RememberLogin)
-                    //{
-                    //    props = new AuthenticationProperties
-                    //    {
-                    //        IsPersistent = true,
-                    //        ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
-                    //    };
-                    //};
+                    // only set explicit expiration here if user chooses "remember me". 
+                    // otherwise we rely upon expiration configured in cookie middleware.
+                    AuthenticationProperties props = null;
+                    if (AccountOptions.AllowRememberLogin && model.RememberLogin)
+                    {
+                        props = new AuthenticationProperties
+                        {
+                            IsPersistent = true,
+                            ExpiresUtc = DateTimeOffset.UtcNow.Add(AccountOptions.RememberMeLoginDuration)
+                        };
+                    };
+
+                    // issue authentication cookie with subject ID and username
+                    await HttpContext.SignInAsync(user.SubjectId, user.Username, props);
 
                     if (context != null)
                     {
@@ -177,7 +168,7 @@ namespace IdentityServer4.Quickstart.UI
             return View(vm);
         }
 
-
+        
         /// <summary>
         /// Show logout page
         /// </summary>
@@ -210,7 +201,7 @@ namespace IdentityServer4.Quickstart.UI
             if (User?.Identity.IsAuthenticated == true)
             {
                 // delete local authentication cookie
-                await _signInManager.SignOutAsync();
+                await HttpContext.SignOutAsync();
 
                 // raise the logout event
                 await _events.RaiseAsync(new UserLogoutSuccessEvent(User.GetSubjectId(), User.GetDisplayName()));
